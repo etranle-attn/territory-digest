@@ -63,7 +63,7 @@ def get_todays_accounts():
 
 def call_anthropic(prompt):
     payload = json.dumps({
-        "model": "claude-sonnet-4-20250514",
+        "model": "claude-sonnet-4-5",
         "max_tokens": 2000,
         "tools": [{"type": "web_search_20250305", "name": "web_search"}],
         "messages": [{"role": "user", "content": prompt}]
@@ -76,7 +76,6 @@ def call_anthropic(prompt):
             "Content-Type": "application/json",
             "x-api-key": ANTHROPIC_API_KEY,
             "anthropic-version": "2023-06-01",
-            "anthropic-beta": "interleaved-thinking-2025-05-14"
         },
         method="POST"
     )
