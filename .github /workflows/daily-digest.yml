@@ -1,0 +1,25 @@
+name: Daily Territory Digest
+
+on:
+  schedule:
+    - cron: '0 12 * * 1-5'  # 8am ET (UTC-4) Mon-Fri
+  workflow_dispatch:         # allows manual "Run workflow" button in GitHub UI
+
+jobs:
+  run-digest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run digest
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: python digest.py
